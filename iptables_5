@@ -17,7 +17,7 @@ iptables -A FORWARD -i $eth2 -o $eth4 -p icmp --icmp-type echo-reply -j ACCEPT
 iptables -A FORWARD -i $eth3 -o $eth4 -p icmp --icmp-type echo-reply -j ACCEPT
 
 
-Computer Engineering Lan 
+Computer Engineering Lan computers
 
 RemoteComputerIP = "85.77.42.63"
 Lan1 = "192.168.5.0/24"
@@ -30,7 +30,7 @@ iptables -A INPUT -i $eth1 -p icmp --icmp-type echo-request -s $RemoteComputerIP
 iptables -A OUTPUT -o $eth1 -p icmp --icmp-type echo-reply -s $Lan1 -d $RemoteComputerIP -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 
-Electronic Engineering Lan
+Electronic Engineering Lan computers
 
 RemoteComputerIP = "85.77.42.63"
 Lan2 = "192.168.10.0/24"
@@ -43,7 +43,7 @@ iptables -A INPUT -i $eth2 -p icmp --icmp-type echo-request -s $RemoteComputerIP
 iptables -A OUTPUT -o $eth2 -p icmp --icmp-type echo-reply -s $Lan2 -d $RemoteComputerIP -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 
-Physics Engineering Lan
+Physics Engineering Lan computers
 
 RemoteComputerIP = "85.77.42.63"
 Lan3 = "192.168.25.0/24"

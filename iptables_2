@@ -7,8 +7,6 @@ eth3 = "192.168.25.254"
 eth4 = "195.152.248.90"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A FORWARD -p tcp -i $eth1 -o $eth4 -m multiport --dports 80,443 -m state --state NEW -j ACCEPT
 iptables -A FORWARD -p tcp -i $eth2 -o $eth4 -m multiport --dports 80,443 -m state --state NEW -j ACCEPT
 iptables -A FORWARD -p tcp -i $eth3 -o $eth4 -m multiport --dports 80,443 -m state --state NEW -j ACCEPT
@@ -22,8 +20,6 @@ TwitterIP = "170.192.40.234"
 YoutubeIP = "144.188.127.195"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A OUTPUT -o $eth1 -s $Lan1 -d $TwitterIP -j ACCEPT
 iptables -A INPUT -i $eth1 -s $TwitterIP -d $Lan1 -j ACCEPT
 iptables -A OUTPUT -o $eth1 -s $Lan1 -d $YoutubeIP -j ACCEPT
@@ -38,8 +34,6 @@ TwitterIP = "170.192.40.234"
 YoutubeIP = "144.188.127.195"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A OUTPUT -o $eth2 -s $Lan2 -d $TwitterIP -j ACCEPT
 iptables -A INPUT -i $eth2 -s $TwitterIP -d $Lan2 -j ACCEPT
 iptables -A OUTPUT -o $eth2 -s $Lan2 -d $YoutubeIP -j ACCEPT
@@ -53,8 +47,6 @@ TwitterIP = "170.192.40.234"
 YoutubeIP = "144.188.127.195"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A OUTPUT -o $eth3 -s $Lan3 -d $TwitterIP -j ACCEPT
 iptables -A INPUT -i $eth3 -s $TwitterIP -d $Lan3 -j ACCEPT
 iptables -A OUTPUT -o $eth3 -s $Lan3 -d $YoutubeIP -j ACCEPT

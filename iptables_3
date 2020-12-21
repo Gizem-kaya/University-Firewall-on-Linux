@@ -11,12 +11,10 @@ WebServerIP = "192.168.1.2"
 EMailServerIP = "192.168.1.3"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A FORWARD -p tcp -i $eth1 -o $eth0 -m multiport --dports 80,443,25 -m state --state NEW -j ACCEPT
 iptables -A FORWARD -p tcp -i $eth2 -o $eth0 -m multiport --dports 80,443,25 -m state --state NEW -j ACCEPT
 iptables -A FORWARD -p tcp -i $eth3 -o $eth0 -m multiport --dports 80,443,25 -m state --state NEW -j ACCEPT
-iptables -A FORWARD -p tcp -i $eth4 -o $eth0 -d $WebServerIP -m multiport --dports 80,443,25 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth4 -o $eth0 -d $WebServerIP -m multiport --dports 80,443 -m state --state NEW -j ACCEPT
 iptables -A FORWARD -p tcp -i $eth4 -o $eth0 -d $EMailServerIP --dport 25 -m state --state NEW -j ACCEPT
 iptables -A FORWARD -m state --state RELATED, ESTABLISHED -j ACCEPT
 
@@ -30,8 +28,6 @@ WebServerIP = "192.168.1.2"
 EMailServerIP = "192.168.1.3"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A OUTPUT -o $eth1 - p tcp -s $Lan1 -d $WebServerIP -m multiport --dports 80,443 -j ACCEPT
 iptables -A INPUT -i $eth1 -s $WebServerIP -d $Lan1 -m multiport --sports 80,443 -j ACCEPT
 iptables -A OUTPUT -o $eth1 - p tcp -s $Lan1 -d $EMailServerIP --dport 25 -j ACCEPT
@@ -47,8 +43,6 @@ WebServerIP = "192.168.1.2"
 EMailServerIP = "192.168.1.3"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A OUTPUT -o $eth2 - p tcp -s $Lan2 -d $WebServerIP -m multiport --dports 80,443 -j ACCEPT
 iptables -A INPUT -i $eth2 -s $WebServerIP -d $Lan2 -m multiport --sports 80,443 -j ACCEPT
 iptables -A OUTPUT -o $eth2 - p tcp -s $Lan2 -d $EMailServerIP --dport 25 -j ACCEPT
@@ -63,8 +57,6 @@ WebServerIP = "192.168.1.2"
 EMailServerIP = "192.168.1.3"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A OUTPUT -o $eth3 - p tcp -s $Lan3 -d $WebServerIP -m multiport --dports 80,443 -j ACCEPT
 iptables -A INPUT -i $eth3 -s $WebServerIP -d $Lan3 -m multiport --sports 80,443 -j ACCEPT
 iptables -A OUTPUT -o $eth3 - p tcp -s $Lan3 -d $EMailServerIP --dport 25 -j ACCEPT
