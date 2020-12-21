@@ -1,50 +1,15 @@
  
-TwitterIP = "170.192.40.234"
-YoutubeIP = "144.188.127.195"
-RemoteComputerIP = "85.77.42.63"
-WebServerIP = "192.168.1.2"
-EMailServerIP = "192.168.1.3"
-
-Lan1 = "192.168.5.0/24"
-Lan2 = "192.168.10.0/24"
-Lan3 = "192.168.25.0/24"
-
-eth0 = "192.168.1.254"
-eth1 = "192.168.5.254"
-eth2 = "192.168.10.254"
-eth3 = "192.168.25.254"
-eth4 = "195.152.248.90"
-
-
 
 Firewall
 
-iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
-
-
-
-For all Computer Engineering Lan computers
+eth0 = "192.168.1.254"
 
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-
-
-For all Electronic Engineering Lan computers
-
-iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
-
-
-
-For all Physics Engineering Lan computers
-
-iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
-
+iptables -A INPUT -p tcp --syn -m connlimit --connlimit-above 100 --connlimit-mask 0 -j DROP
+iptables -A OUTPUT -p tcp --syn -m connlimit --connlimit-above 100 --connlimit-mask 0 -j DROP
+iptables -A FORWARD -p tcp -o $eth0 --dport 443 -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth0 --sport 443 -j ACCEPT
 
 
