@@ -1,49 +1,59 @@
- 
-TwitterIP = "170.192.40.234"
-YoutubeIP = "144.188.127.195"
-RemoteComputerIP = "85.77.42.63"
-WebServerIP = "192.168.1.2"
-EMailServerIP = "192.168.1.3"
 
-Lan1 = "192.168.5.0/24"
-Lan2 = "192.168.10.0/24"
-Lan3 = "192.168.25.0/24"
+
+Firewall
 
 eth0 = "192.168.1.254"
 eth1 = "192.168.5.254"
 eth2 = "192.168.10.254"
 eth3 = "192.168.25.254"
-eth4 = "195.152.248.90"
-
-
-
-Firewall
 
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-
-
+iptables -A FORWARD -p tcp -i $eth1 -o $eth0 --dport 110 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth2 -o $eth0 --dport 110 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth3 -o $eth0 --dport 110 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth1 -o $eth0 --dport 143 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth2 -o $eth0 --dport 143 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth3 -o $eth0 --dport 143 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -m state --state RELATED, ESTABLISHED -j ACCEPT
 
 For all Computer Engineering Lan computers
 
+Lan1 = "192.168.5.0/24"
+eth1 = "192.168.5.254"
+EMailServerIP = "192.168.1.3"
+
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-
+iptables -A OUTPUT -o $eth1 -s $Lan1 -d $EMailServerIP -j ACCEPT
+iptables -A INPUT -i $eth1 -s $EMailServerIP -d $Lan1 -j ACCEPT
 
 
 For all Electronic Engineering Lan computers
 
+Lan2 = "192.168.10.0/24"
+eth2 = "192.168.10.254"
+EMailServerIP = "192.168.1.3"
+
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A OUTPUT -o $eth2 -s $Lan2 -d $EMailServerIP -j ACCEPT
+iptables -A INPUT -i $eth2 -s $EMailServerIP -d $Lan2 -j ACCEPT
 
 
 For all Physics Engineering Lan computers
 
+Lan3 = "192.168.25.0/24"
+eth3 = "192.168.25.254"
+EMailServerIP = "192.168.1.3"
+
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A OUTPUT -o $eth3 -s $Lan3 -d $EMailServerIP -j ACCEPT
+iptables -A INPUT -i $eth3 -s $EMailServerIP -d $Lan3 -j ACCEPT
 
 

@@ -9,9 +9,9 @@ eth4 = "195.152.248.90"
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-iptables -A FORWARD -p tcp -i $eth1 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW -j ACCEPT
-iptables -A FORWARD -p tcp -i $eth2 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW -j ACCEPT
-iptables -A FORWARD -p tcp -i $eth3 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth1 -o $eth4 -m multiport --dports 80,443 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth2 -o $eth4 -m multiport --dports 80,443 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth3 -o $eth4 -m multiport --dports 80,443 -m state --state NEW -j ACCEPT
 iptables -A FORWARD -m state --state RELATED, ESTABLISHED -j ACCEPT
 
 

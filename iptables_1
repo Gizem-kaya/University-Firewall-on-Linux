@@ -33,3 +33,5 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A INPUT -i $eth2 -s $Lan1 -j ACCEPT
 iptables -A OUTPUT -o $eth2 -d $Lan1 -j ACCEPT
+
+
