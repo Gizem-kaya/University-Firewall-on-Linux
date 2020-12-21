@@ -9,11 +9,10 @@ eth4 = "195.152.248.90"
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-iptables -A FORWARD -p tcp -i $eth1 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A FORWARD -p tcp -i $eth2 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A FORWARD -p tcp -i $eth3 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth1 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth2 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth3 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW -j ACCEPT
 iptables -A FORWARD -m state --state RELATED, ESTABLISHED -j ACCEPT
-
 
 
 For all Computer Engineering Lan computers
@@ -25,10 +24,11 @@ YoutubeIP = "144.188.127.195"
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-iptables OUTPUT -s $Lan1 -d $TwitterIP -j ACCEPT
-iptables INPUT -s $TwitterIP -d $Lan1 -j ACCEPT
-iptables OUTPUT -s $Lan1 -d $YoutubeIP -j ACCEPT
-iptables INPUT -s $YoutubeIP -d $Lan1 -j ACCEPT
+iptables -A OUTPUT -o $eth1 -s $Lan1 -d $TwitterIP -j ACCEPT
+iptables -A INPUT -i $eth1 -s $TwitterIP -d $Lan1 -j ACCEPT
+iptables -A OUTPUT -o $eth1 -s $Lan1 -d $YoutubeIP -j ACCEPT
+iptables -A INPUT -i $eth1 -s $YoutubeIP -d $Lan1 -j ACCEPT
+
 
 
 For all Electronic Engineering Lan computers
@@ -40,10 +40,10 @@ YoutubeIP = "144.188.127.195"
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-iptables OUTPUT -s $Lan2 -d $TwitterIP -j ACCEPT
-iptables INPUT -s $TwitterIP -d $Lan2 -j ACCEPT
-iptables OUTPUT -s $Lan2 -d $YoutubeIP -j ACCEPT
-iptables INPUT -s $YoutubeIP -d $Lan2 -j ACCEPT
+iptables -A OUTPUT -o $eth2 -s $Lan2 -d $TwitterIP -j ACCEPT
+iptables -A INPUT -i $eth2 -s $TwitterIP -d $Lan2 -j ACCEPT
+iptables -A OUTPUT -o $eth2 -s $Lan2 -d $YoutubeIP -j ACCEPT
+iptables -A INPUT -i $eth2 -s $YoutubeIP -d $Lan2 -j ACCEPT
 
 
 For all Physics Engineering Lan computers
@@ -55,9 +55,9 @@ YoutubeIP = "144.188.127.195"
 iptables -F
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-iptables OUTPUT -s $Lan3 -d $TwitterIP -j ACCEPT
-iptables INPUT -s $TwitterIP -d $Lan3 -j ACCEPT
-iptables OUTPUT -s $Lan3 -d $YoutubeIP -j ACCEPT
-iptables INPUT -s $YoutubeIP -d $Lan3 -j ACCEPT
+iptables -A OUTPUT -o $eth3 -s $Lan3 -d $TwitterIP -j ACCEPT
+iptables -A INPUT -i $eth3 -s $TwitterIP -d $Lan3 -j ACCEPT
+iptables -A OUTPUT -o $eth3 -s $Lan3 -d $YoutubeIP -j ACCEPT
+iptables -A INPUT -i $eth3 -s $YoutubeIP -d $Lan3 -j ACCEPT
 
 
