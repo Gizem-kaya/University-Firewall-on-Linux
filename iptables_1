@@ -1,0 +1,35 @@
+
+Firewall
+
+eth1 = "192.168.5.254"
+eth2 = "192.168.10.254"
+
+iptables -F 
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A FORWARD -i $eth1 -o $eth2 -j ACCEPT
+iptables -A FORWARD -i $eth2 -o $eth1 -j ACCEPT
+
+
+For all Computer Engineering Lan computers
+
+eth1 = "192.168.5.254"
+Lan2 = "192.168.10.0/24"
+
+iptables -F 
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A INPUT -i $eth1 -s $Lan2 -j ACCEPT
+iptables -A OUTPUT -o $eth1 -d $Lan2 -j ACCEPT
+
+
+For all Electronic Engineering Lan computers
+
+Lan1 = "192.168.5.0/24"
+eth2 = "192.168.10.254"
+
+iptables -F 
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A INPUT -i $eth2 -s $Lan1 -j ACCEPT
+iptables -A OUTPUT -o $eth2 -d $Lan1 -j ACCEPT

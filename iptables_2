@@ -1,0 +1,63 @@
+
+Firewall
+
+eth1 = "192.168.5.254"
+eth2 = "192.168.10.254"
+eth3 = "192.168.25.254"
+eth4 = "195.152.248.90"
+
+iptables -F
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth1 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth2 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp -i $eth3 -o $eth4 -m multiport --dports 80,443 -j -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -m state --state RELATED, ESTABLISHED -j ACCEPT
+
+
+
+For all Computer Engineering Lan computers
+
+Lan1 = "192.168.5.0/24"
+TwitterIP = "170.192.40.234"
+YoutubeIP = "144.188.127.195"
+
+iptables -F
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables OUTPUT -s $Lan1 -d $TwitterIP -j ACCEPT
+iptables INPUT -s $TwitterIP -d $Lan1 -j ACCEPT
+iptables OUTPUT -s $Lan1 -d $YoutubeIP -j ACCEPT
+iptables INPUT -s $YoutubeIP -d $Lan1 -j ACCEPT
+
+
+For all Electronic Engineering Lan computers
+
+Lan2 = "192.168.10.0/24"
+TwitterIP = "170.192.40.234"
+YoutubeIP = "144.188.127.195"
+
+iptables -F
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables OUTPUT -s $Lan2 -d $TwitterIP -j ACCEPT
+iptables INPUT -s $TwitterIP -d $Lan2 -j ACCEPT
+iptables OUTPUT -s $Lan2 -d $YoutubeIP -j ACCEPT
+iptables INPUT -s $YoutubeIP -d $Lan2 -j ACCEPT
+
+
+For all Physics Engineering Lan computers
+
+Lan3 = "192.168.25.0/24"
+TwitterIP = "170.192.40.234"
+YoutubeIP = "144.188.127.195"
+
+iptables -F
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables OUTPUT -s $Lan3 -d $TwitterIP -j ACCEPT
+iptables INPUT -s $TwitterIP -d $Lan3 -j ACCEPT
+iptables OUTPUT -s $Lan3 -d $YoutubeIP -j ACCEPT
+iptables INPUT -s $YoutubeIP -d $Lan3 -j ACCEPT
+
+
