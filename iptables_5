@@ -7,8 +7,6 @@ eth3 = "192.168.25.254"
 eth4 = "195.152.248.90"
 
 iptables -F 
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A FORWARD -i $eth4 -o $eth1 -p icmp --icmp-type echo-request -j ACCEPT
 iptables -A FORWARD -i $eth4 -o $eth2 -p icmp --icmp-type echo-request -j ACCEPT
 iptables -A FORWARD -i $eth4 -o $eth3 -p icmp --icmp-type echo-request -j ACCEPT
@@ -24,8 +22,6 @@ Lan1 = "192.168.5.0/24"
 eth1 = "192.168.5.254"
 
 iptables -F
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A INPUT -i $eth1 -p icmp --icmp-type echo-request -s $RemoteComputerIP -d $Lan1 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -o $eth1 -p icmp --icmp-type echo-reply -s $Lan1 -d $RemoteComputerIP -m state --state ESTABLISHED,RELATED -j ACCEPT
 
@@ -37,8 +33,6 @@ Lan2 = "192.168.10.0/24"
 eth2 = "192.168.10.254"
 
 iptables -F 
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A INPUT -i $eth2 -p icmp --icmp-type echo-request -s $RemoteComputerIP -d $Lan2 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -o $eth2 -p icmp --icmp-type echo-reply -s $Lan2 -d $RemoteComputerIP -m state --state ESTABLISHED,RELATED -j ACCEPT
 
@@ -50,7 +44,7 @@ Lan3 = "192.168.25.0/24"
 eth3 = "192.168.25.254"
 
 iptables -F 
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
 iptables -A INPUT -i $eth3 -p icmp --icmp-type echo-request -s $RemoteComputerIP -d $Lan3 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -o $eth3 -p icmp --icmp-type echo-reply -s $Lan3 -d $RemoteComputerIP -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+
